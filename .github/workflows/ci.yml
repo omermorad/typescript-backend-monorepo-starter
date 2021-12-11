@@ -1,0 +1,46 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - release
+
+jobs:
+  build-and-test:
+    name: Build & Test
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Use NodeJS ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Yarn Init
+        run: yarn
+
+      - name: Lint Commit Message
+        run: echo $(git log -1 --pretty=format:"%s") | yarn commitlint
+
+      - name: Lint
+        run: lerna exec --parallel -- yarn lint
+
+      - name: Lint Packages
+        run: yarn manypkg check
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
+        run: yarn test:cov

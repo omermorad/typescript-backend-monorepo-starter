@@ -1,0 +1,16 @@
+{
+  "name": "@project/package-4",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "dist/project-package-4.cjs.js",
+  "module": "dist/project-package-4.esm.js",
+  "scripts": {
+    "watch": "tsc --watch",
+    "lint": "eslint 'src/**/*.ts"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md"
+  ]
+}

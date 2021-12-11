@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.build.json",
+  "compilerOptions": {
+    "isolatedModules": true,
+    "rootDir": "./src",
+    "target": "es6"
+  },
+  "exclude": [
+    "node_modules",
+    "test",
+    "src/**/*.test.ts",
+    "index.ts"
+  ],
+  "include": ["src/"]
+}
